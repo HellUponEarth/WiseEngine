@@ -1,0 +1,15 @@
+/build/
+/backups/
+/.vs/
+/.vscode/
+/.codex/
+/.agents/
+/CMakeUserPresets.json
+__pycache__/
+*.pyc
+*.log
+.env
+.env.*
+/thirdparty/*/
+!/thirdparty/integration/
+/thirdparty/dependencies.installed.json

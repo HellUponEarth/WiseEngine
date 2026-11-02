@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "dependencies": [
+    {
+      "kind": "git",
+      "name": "fmt",
+      "url": "https://github.com/fmtlib/fmt.git",
+      "version": "11.1.4",
+      "commit": "123913715afeb8a437e6388b4473fcc4753e1c9a"
+    },
+    {
+      "kind": "git",
+      "name": "spdlog",
+      "url": "https://github.com/gabime/spdlog.git",
+      "version": "v1.15.3",
+      "commit": "6fa36017cfd5731d617e1a934f0e5ea9c4445b13"
+    },
+    {
+      "kind": "git",
+      "name": "yaml-cpp",
+      "url": "https://github.com/jbeder/yaml-cpp.git",
+      "version": "0.8.0",
+      "commit": "f7320141120f720aecc4c32be25586e7da9eb978"
+    },
+    {
+      "kind": "git",
+      "name": "stb",
+      "url": "https://github.com/nothings/stb.git",
+      "version": "HEAD",
+      "commit": "d14d46f6b44456eb88beac58cba833a4135d4c89"
+    },
+    {
+      "kind": "git",
+      "name": "SDL",
+      "url": "https://github.com/libsdl-org/SDL.git",
+      "version": "release-3.4.18",
+      "commit": "829a65d769d935c4852f8159e964312c0957260a"
+    },
+    {
+      "kind": "git",
+      "name": "glm",
+      "url": "https://github.com/g-truc/glm.git",
+      "version": "1.0.3",
+      "commit": "8d1fd52e5ab5590e2c81768ace50c72bae28f2ed"
+    },
+    {
+      "kind": "git",
+      "name": "entt",
+      "url": "https://github.com/skypjack/entt.git",
+      "version": "v3.15.0",
+      "commit": "d4014c74dc3793aba95ae354d6e23a026c2796db"
+    },
+    {
+      "kind": "git",
+      "name": "enkiTS",
+      "url": "https://github.com/dougbinks/enkiTS.git",
+      "version": "v1.12",
+      "commit": "0289cf6ffce86697e1f46cb4eeca1c946bffec71"
+    },
+    {
+      "kind": "git",
+      "name": "JoltPhysics",
+      "url": "https://github.com/jrouwe/JoltPhysics.git",
+      "version": "v5.6.0",
+      "commit": "e77f175595e64cb44218cc9d9d56fc365ad0e36a"
+    },
+    {
+      "kind": "git",
+      "name": "luau",
+      "url": "https://github.com/luau-lang/luau.git",
+      "version": "0.745",
+      "commit": "2a3d8937c19c8fd9f7b72b6ec9068c62760e6588"
+    },
+    {
+      "kind": "git",
+      "name": "LuaBridge3",
+      "url": "https://github.com/kunitoki/LuaBridge3.git",
+      "version": "3.0-rc13",
+      "commit": "64b3ec3d265578c742abd5d3939b133353952718"
+    },
+    {
+      "kind": "git",
+      "name": "tracy",
+      "url": "https://github.com/wolfpld/tracy.git",
+      "version": "v0.14.1",
+      "commit": "30997d5ca6bb632cc10807a1da8a6d3de0aeeb3c"
+    },
+    {
+      "kind": "git",
+      "name": "physfs",
+      "url": "https://github.com/icculus/physfs.git",
+      "version": "release-3.2.0",
+      "commit": "eb3383b532c5f74bfeb42ec306ba2cf80eed988c"
+    },
+    {
+      "kind": "git",
+      "name": "asio",
+      "url": "https://github.com/chriskohlhoff/asio.git",
+      "version": "asio-1-38-2",
+      "commit": "8806a6803cde7054c3049d3666d3ec36786568c5"
+    },
+    {
+      "kind": "git",
+      "name": "meshoptimizer",
+      "url": "https://github.com/zeux/meshoptimizer.git",
+      "version": "v1.3",
+      "commit": "9e1f07b159d3cb777f1c67ed31fc11fd117986f4"
+    },
+    {
+      "kind": "git",
+      "name": "DirectXTex",
+      "url": "https://github.com/microsoft/DirectXTex.git",
+      "version": "oct2025",
+      "commit": "232bbf2e39a37ea2e9b7b8331653fa69bd4797a2"
+    },
+    {
+      "kind": "git",
+      "name": "zstd",
+      "url": "https://github.com/facebook/zstd.git",
+      "version": "v1.5.7",
+      "commit": "f8745da6ff1ad1e7bab384bd1f9d742439278e99"
+    },
+    {
+      "kind": "git",
+      "name": "xxHash",
+      "url": "https://github.com/Cyan4973/xxHash.git",
+      "version": "v0.8.4",
+      "commit": "c87183a77d67f7d37e3d2d1b7eaac5e7c695e4f0"
+    },
+    {
+      "kind": "git",
+      "name": "json",
+      "url": "https://github.com/nlohmann/json.git",
+      "version": "v3.12.0",
+      "commit": "55f93686c01528224f448c19128836e7df245f72"
+    },
+    {
+      "kind": "git",
+      "name": "miniaudio",
+      "url": "https://github.com/mackron/miniaudio.git",
+      "version": "0.11.26",
+      "commit": "877ea4a7c2601c7b0f2a44e83dfac42e6470fea6"
+    },
+    {
+      "kind": "git",
+      "name": "DiligentEngine",
+      "url": "https://github.com/DiligentGraphics/DiligentEngine.git",
+      "version": "v2.5.6",
+      "commit": "5301bfd3bb36fe231fee31ae2a28a4e5175a7551",
+      "submodules": [
+        "DiligentCore",
+        "DiligentTools",
+        "DiligentFX"
+      ]
+    },
+    {
+      "kind": "git",
+      "name": "ozz-animation",
+      "url": "https://github.com/guillaumeblanc/ozz-animation.git",
+      "version": "0.16.0",
+      "commit": "6cbdc790123aa4731d82e255df187b3a8a808256"
+    },
+    {
+      "kind": "git",
+      "name": "recastnavigation",
+      "url": "https://github.com/recastnavigation/recastnavigation.git",
+      "version": "v1.6.0",
+      "commit": "6dc1667f580357e8a2154c28b7867bea7e8ad3a7"
+    },
+    {
+      "kind": "archive",
+      "name": "boost",
+      "version": "1.88.0",
+      "url": "https://archives.boost.io/release/1.88.0/source/boost_1_88_0.tar.gz",
+      "filename": "boost_1_88_0.tar.gz",
+      "sha256": "3621533e820dcab1e8012afd583c0c73cf0f77694952b81352bf38c1488f9cb4",
+      "format": "tar"
+    },
+    {
+      "kind": "archive",
+      "name": "dxc",
+      "version": "v1.9.2609",
+      "url": "https://github.com/microsoft/DirectXShaderCompiler/releases/download/v1.9.2609/dxc_2026_09_29.zip",
+      "filename": "dxc_2026_09_29.zip",
+      "sha256": "ad31b1fc8443175d204f77a611fdb3ef2ec42759bdc2f1167368de24a4a7e7f1",
+      "format": "zip"
+    }
+  ],
+  "pythonPackages": [
+    "libclang==16.0.6",
+    "Jinja2==3.1.6",
+    "MarkupSafe==3.0.4"
+  ]
+}

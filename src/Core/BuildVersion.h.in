@@ -1,0 +1,7 @@
+#pragma once
+// Code Modification - Core: Keep version/configuration metadata independent of wall-clock time and source path.
+// Scope: generated header. Performance: constants only. Toggle: none.
+#define WISEENGINE_VERSION "@PROJECT_VERSION@"
+#define WISEENGINE_CONFIGURATION "@CMAKE_BUILD_TYPE@"
+#define WISEENGINE_COMPILER "MSVC @CMAKE_CXX_COMPILER_VERSION@"
+// End of Code Modification - Core
