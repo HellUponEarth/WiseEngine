@@ -166,9 +166,9 @@ def main():
                 if hashlib.sha256((wheels / name).read_bytes()).hexdigest() != expected:
                     raise RuntimeError(f"Offline wheel hash mismatch: {name}")
         else:
-            subprocess.run([str(interpreter), "-m", "pip", "--isolated", "--disable-pip-version-check",
+            subprocess.run([str(interpreter), "-m", "pip", "--isolated", "--no-cache-dir", "--disable-pip-version-check",
                         "download", "--dest", str(wheels), *packages], check=True)
-        subprocess.run([str(interpreter), "-m", "pip", "--isolated", "--disable-pip-version-check",
+        subprocess.run([str(interpreter), "-m", "pip", "--isolated", "--no-cache-dir", "--disable-pip-version-check",
                         "install", "--no-index", "--find-links", str(wheels), *packages], check=True)
         wheel_hashes = {item.name: hashlib.sha256(item.read_bytes()).hexdigest()
                         for item in wheels.glob("*.whl")}

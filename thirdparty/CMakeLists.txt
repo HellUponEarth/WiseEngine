@@ -169,6 +169,7 @@ endif()
 set(Python3_EXECUTABLE "${THIRDPARTY_ROOT}/python-runtime/Scripts/python.exe" CACHE FILEPATH "Project-local SDK code generation" FORCE)
 # Upstream runs pip during configure; all required packages are already staged locally.
 set(ENV{PIP_NO_INDEX} "1")
+set(ENV{PIP_NO_CACHE_DIR} "1")
 set(ENV{PIP_DISABLE_PIP_VERSION_CHECK} "1")
 ce_sdk(DiligentEngine)
 add_library(ce_diligent INTERFACE)

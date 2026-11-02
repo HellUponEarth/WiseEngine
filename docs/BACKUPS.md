@@ -33,4 +33,4 @@ python cmake/VerifyThirdParty.py
 .\build.ps1 -Config Debug -Target all -Tests
 ```
 
-The compiler/Windows SDK/Python/Git must be installed independently. The offline command reconstructs only the local generator environment from cached wheels. It does not install global Python packages or restore build outputs. To recover engine Git history, clone the public repository at the manifest's `sourceCommit`; the ZIP is a source/SDK recovery snapshot rather than a Git history backup.
+The compiler/Windows SDK/Python/Git must be installed independently. This milestone cache contains Windows x64 Python 3.14 generator wheels; use Python 3.14 for fully offline recovery. An online bootstrap with another supported Python version downloads its compatible wheel instead. The offline command reconstructs only the local generator environment from cached wheels. It does not install global Python packages or restore build outputs. To recover engine Git history, clone the public repository at the manifest's `sourceCommit`; the ZIP is a source/SDK recovery snapshot rather than a Git history backup.
