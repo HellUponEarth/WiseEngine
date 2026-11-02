@@ -16,7 +16,7 @@
 | Offline SDK/helper bootstrap | PASS | `build/offline-bootstrap.log`; a new local venv was also created from cached wheels during initial bring-up |
 | SDK provenance | PASS | 25 SDK pins, 17 initialized submodules, 3 generator packages; `thirdparty/dependencies.installed.json` |
 | Default executable startup/shutdown | PASS | Both configurations log their build identity and exit successfully |
-| Recovery regressions | 3/3 PASS | ZIP extraction, payload corruption detection, unsafe-path rejection; part of CTest |
+| Recovery regressions | 4/4 PASS | ZIP extraction, payload corruption detection, source-link rejection, unsafe-path rejection; part of CTest |
 
 ## Inputs and reproducibility
 
@@ -39,3 +39,5 @@ After committing/tagging this accepted source, `cmake/BackupMilestone.py --versi
 ## Limits
 
 No GPU frame/window, direct visual/control review, audio playback, TCP/UDP message transport, terrain streaming, foliage, ocean, game-physics integration, navigation or animation was accepted. Those are later increments. Optional SDK/tool executables were exposed but not separately compiled in this milestone's WiseEngine builds. SDK archive verification checks cached archives and installation markers rather than every extracted archive file; Git SDK tracked trees and recursive pins were checked for changes.
+
+The recovery writer uses cached directory-entry metadata and open-handle checks to avoid repeated Windows path queries across the 114,824-file SDK inventory. All files remain included and hash-verified. Its four integrity regressions were rerun after this change; C++ build inputs were unchanged.

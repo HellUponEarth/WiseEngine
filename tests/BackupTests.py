@@ -45,6 +45,15 @@ class RecoveryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'content mismatch'):
             backup.verify_backup(tampered)
 
+    def test_source_links_are_rejected(self):
+        link = self.root / 'src/Core/alias.cpp'
+        try:
+            link.symlink_to(self.root / 'src/Core/test.cpp')
+        except OSError as error:
+            self.skipTest(f'Host does not permit symbolic links: {error}')
+        with self.assertRaisesRegex(RuntimeError, 'refuses links'):
+            backup.create_backup(self.root, self.archive, '0.0.1', 'fixture')
+
     def test_path_escape_is_rejected(self):
         with zipfile.ZipFile(self.archive, 'w') as target:
             target.writestr('../escape.txt', 'unsafe')
