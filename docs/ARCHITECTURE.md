@@ -1,14 +1,15 @@
 # Architecture and ownership
 
-## Implemented at 0.0.7
+## Implemented at 0.0.8
 
-App owns SDL video, the window and the main-thread event loop. Input keeps a per-batch snapshot of keyboard and mouse state. Core supplies build metadata, diagnostic logging, explicit fixed simulation ticks, frame scratch leases and generation-checked handles. App owns target detection and the SDL elapsed clock. Math implements checked world/cell conversions. Renderer has a CPU-only bridge for camera-relative coordinates. Jobs provides an opt-in enkiTS CPU scheduler, a dedicated SDL I/O thread and a bounded owner-drained completion queue. AssetManager owns the PhysicsFS content mounts and save directory. Network owns an opt-in Asio transport with owner-pumped TCP and UDP completions. Physics and Audio are interface reservations.
+App owns SDL video, the window and the main-thread event loop. Input keeps a per-batch snapshot of keyboard and mouse state. Core supplies build metadata, diagnostic logging, explicit fixed simulation ticks, frame scratch leases and generation-checked handles. App owns target detection and the SDL elapsed clock. Math implements checked world/cell conversions. Renderer has a CPU bridge for camera-relative coordinates and owns the Diligent DX12 device, swap chain and baseline textured scene on the application thread. Jobs provides an opt-in enkiTS CPU scheduler, a dedicated SDL I/O thread and a bounded owner-drained completion queue. AssetManager owns the PhysicsFS content mounts and save directory. Network owns an opt-in Asio transport with owner-pumped TCP and UDP completions. Physics and Audio are interface reservations.
 
 ```mermaid
 flowchart TD
     App[App: SDL shell, platform and elapsed clock] --> Core[Core: build identity, logging, timing, scratch and handles]
     Core --> Math[Math: world and cell coordinates]
-    Renderer[Renderer: render-coordinate bridge] --> Core
+    App --> Renderer[Renderer: DX12 scene and render coordinates]
+    Renderer --> Core
     Renderer --> Math
     Physics[Physics: reserved] --> Core
     Physics --> Math
@@ -21,7 +22,7 @@ flowchart TD
     AssetManager --> Math
 ```
 
-Arrows mean permitted direct engine-module dependency. App may depend on every module when its implementation needs them; at this milestone it links Core, Input, Jobs and AssetManager. Third-party targets are separate from this graph. Core's only external libraries are fmt/spdlog. Never initialize an upper-level module from Core.
+Arrows mean permitted direct engine-module dependency. App may depend on every module when its implementation needs them; at this milestone it links Core, Input, Jobs, AssetManager and Renderer. Third-party targets are separate from this graph. Core's only external libraries are fmt/spdlog. Never initialize an upper-level module from Core.
 
 ## Planned runtime contracts
 

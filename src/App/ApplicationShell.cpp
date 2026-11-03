@@ -97,6 +97,21 @@ bool ApplicationShell::pump(bool wait)
     return true;
 }
 
+// Code Modification - Application: Supply the renderer with the native handle and suppress minimized draws.
+// Scope: window bridge. Performance: one flags query per frame. Toggle: --no-render bypasses the renderer.
+void* ApplicationShell::nativeWindow() const noexcept
+{
+    return window_ ? SDL_GetPointerProperty(SDL_GetWindowProperties(window_.get()),
+        SDL_PROP_WINDOW_WIN32_HWND_POINTER, nullptr) : nullptr;
+}
+
+bool ApplicationShell::drawable() const noexcept
+{
+    return window_ && pixelWidth_ > 0 && pixelHeight_ > 0 &&
+        !(SDL_GetWindowFlags(window_.get()) & SDL_WINDOW_MINIMIZED);
+}
+// End of Code Modification - Application
+
 bool ApplicationShell::dispatch(const SDL_Event& event)
 {
     if (event.type == SDL_EVENT_QUIT) {
@@ -110,6 +125,9 @@ bool ApplicationShell::dispatch(const SDL_Event& event)
     case SDL_EVENT_WINDOW_CLOSE_REQUESTED:
     case SDL_EVENT_WINDOW_RESIZED:
     case SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED:
+    case SDL_EVENT_WINDOW_MINIMIZED:
+    case SDL_EVENT_WINDOW_MAXIMIZED:
+    case SDL_EVENT_WINDOW_RESTORED:
     case SDL_EVENT_WINDOW_FOCUS_LOST:
         source = event.window.windowID;
         break;
@@ -137,7 +155,9 @@ bool ApplicationShell::dispatch(const SDL_Event& event)
         running_ = false;
         return false;
     }
-    if (event.type == SDL_EVENT_WINDOW_RESIZED || event.type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED) {
+    if (event.type == SDL_EVENT_WINDOW_RESIZED || event.type == SDL_EVENT_WINDOW_PIXEL_SIZE_CHANGED ||
+        event.type == SDL_EVENT_WINDOW_MINIMIZED || event.type == SDL_EVENT_WINDOW_MAXIMIZED ||
+        event.type == SDL_EVENT_WINDOW_RESTORED) {
         return refreshSize();
     }
     const bool changed = input_.apply(event);

@@ -95,3 +95,12 @@ wiseengine_target(TransportTests)
 add_test(NAME Network.Transport COMMAND TransportTests)
 set_tests_properties(Network.Transport PROPERTIES TIMEOUT 30)
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Exercise real DX12 hardware and validate textured pixels in a native swap chain.
+# Scope: opt-in GPU smoke. Performance: three GPU frames and one staging readback. Toggle: WISEENGINE_TEST_DX12.
+option(WISEENGINE_TEST_DX12 "Register native DX12 smoke requiring Windows Graphics Tools and an interactive Windows session" OFF)
+if(WISEENGINE_TEST_DX12)
+    add_test(NAME Renderer.DX12 COMMAND App --dx12-smoke)
+    set_tests_properties(Renderer.DX12 PROPERTIES TIMEOUT 45 RUN_SERIAL TRUE)
+endif()
+# End of Code Modification - Tests

@@ -1,7 +1,7 @@
 # Code Modification - Build System: Establish the versioned WiseEngine build baseline.
 # Scope: engine targets. Performance: no runtime cost. Toggle: WISEENGINE_* feature options.
 cmake_minimum_required(VERSION 3.31)
-project(WiseEngine VERSION 0.0.7 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
+project(WiseEngine VERSION 0.0.8 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)

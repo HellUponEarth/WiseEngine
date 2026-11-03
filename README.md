@@ -1,6 +1,6 @@
 # WiseEngine
 
-WiseEngine is a C++20 game-engine project using Diligent for rendering and Luau for gameplay scripting. **Version 0.0.7 adds the Asio TCP and UDP transport foundation.** Launch the executable to open a resizable window with live keyboard and pointer diagnostics in its title.
+WiseEngine is a C++20 game-engine project using Diligent for rendering and Luau for gameplay scripting. **Version 0.0.8 brings up the Diligent DX12 renderer.** Launch the executable to view a rotating textured cube in a resizable SDL window. Windows Graphics Tools enables the default DX12 validation path.
 
 ## Build
 
@@ -19,6 +19,7 @@ The build script imports the VS2022 x64 environment into its own process. Direct
 
 ## Milestones and recovery
 
+- [0.0.8 implementation and usage](docs/MILESTONE_0.0.8.md)
 - [0.0.7 implementation and usage](docs/MILESTONE_0.0.7.md)
 - [0.0.6 implementation and usage](docs/MILESTONE_0.0.6.md)
 - [0.0.5 implementation and usage](docs/MILESTONE_0.0.5.md)
@@ -37,6 +38,6 @@ After a milestone passes validation, commit/tag the source, run `python cmake/Ba
 
 ## Status and licensing
 
-Core supplies build metadata. App owns the SDL window and event loop, and Input tracks each event batch. GPU rendering and the outdoor systems are planned in subsequent milestones.
+Core supplies build metadata. App owns the SDL window and event loop, and Input tracks each event batch. Renderer draws the baseline DX12 scene. Terrain streaming, dense foliage, and ocean simulation are planned in subsequent milestones.
 
 No license has been selected for WiseEngine's own source. Public visibility does not grant a general redistribution license. SDKs remain under their upstream licenses; preserve applicable copyright and third-party notices when distributing them. See [third-party notices](THIRD_PARTY_NOTICES.md).

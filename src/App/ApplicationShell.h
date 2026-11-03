@@ -25,6 +25,8 @@ public:
     int height() const noexcept { return height_; }
     int pixelWidth() const noexcept { return pixelWidth_; }
     int pixelHeight() const noexcept { return pixelHeight_; }
+    void* nativeWindow() const noexcept;
+    bool drawable() const noexcept;
 
 private:
     bool dispatch(const SDL_Event& event);
