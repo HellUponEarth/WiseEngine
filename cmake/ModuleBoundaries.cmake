@@ -1,6 +1,6 @@
 # Code Modification - Build System: Reject reverse engine-module links before they become static-library cycles.
 # Scope: project targets only; SDK internal graphs are owned upstream. Performance: configure-only. Toggle: none.
-set(WISEENGINE_MODULES Math Core Renderer Physics Audio Input Network AssetManager App)
+set(WISEENGINE_MODULES Math Core Renderer Physics Audio Input Network AssetManager Jobs App)
 set(WISEENGINE_ALLOWED_Math "")
 set(WISEENGINE_ALLOWED_Core Math)
 set(WISEENGINE_ALLOWED_Renderer Math Core)
@@ -9,7 +9,8 @@ set(WISEENGINE_ALLOWED_Audio Core)
 set(WISEENGINE_ALLOWED_Input Core)
 set(WISEENGINE_ALLOWED_Network Core)
 set(WISEENGINE_ALLOWED_AssetManager Core Math)
-set(WISEENGINE_ALLOWED_App Math Core Renderer Physics Audio Input Network AssetManager)
+set(WISEENGINE_ALLOWED_Jobs "")
+set(WISEENGINE_ALLOWED_App Math Core Renderer Physics Audio Input Network AssetManager Jobs)
 function(wiseengine_check_module_boundaries)
     foreach(module IN LISTS WISEENGINE_MODULES)
         if(NOT TARGET ${module})

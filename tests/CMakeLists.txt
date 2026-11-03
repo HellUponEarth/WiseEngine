@@ -56,3 +56,14 @@ set_tests_properties(Foundation.Contracts App.PlatformInfo PROPERTIES
     TIMEOUT 15 ENVIRONMENT "SDL_VIDEO_DRIVER=wiseengine-invalid-driver")
 set_tests_properties(App.PlatformInfo PROPERTIES PASS_REGULAR_EXPRESSION "performance_counter_hz=[1-9][0-9]*")
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Exercise scheduler dependencies and shutdown with real workers.
+# Scope: test executables and headless CLI. Performance: test-only. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(JobSystemTests JobSystemTests.cpp)
+target_link_libraries(JobSystemTests PRIVATE Jobs)
+wiseengine_target(JobSystemTests)
+add_test(NAME Jobs.Contracts COMMAND JobSystemTests)
+add_test(NAME App.JobSmoke COMMAND App --job-smoke)
+set_tests_properties(Jobs.Contracts App.JobSmoke PROPERTIES
+    TIMEOUT 20 ENVIRONMENT "SDL_VIDEO_DRIVER=wiseengine-invalid-driver")
+# End of Code Modification - Tests

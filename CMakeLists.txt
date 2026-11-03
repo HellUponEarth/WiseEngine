@@ -1,7 +1,7 @@
 # Code Modification - Build System: Establish the versioned WiseEngine build baseline.
 # Scope: engine targets. Performance: no runtime cost. Toggle: WISEENGINE_* feature options.
 cmake_minimum_required(VERSION 3.31)
-project(WiseEngine VERSION 0.0.3 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
+project(WiseEngine VERSION 0.0.4 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -39,6 +39,7 @@ add_subdirectory(src/Core)
 foreach(module Renderer Physics Audio Input Network AssetManager)
     add_subdirectory(src/${module})
 endforeach()
+add_subdirectory(src/Jobs)
 add_subdirectory(src/App)
 wiseengine_check_module_boundaries()
 if(WISEENGINE_BUILD_TESTS)
