@@ -1,4 +1,6 @@
 #include "ApplicationShell.h"
+#include "ElapsedClock.h"
+#include "PlatformInfo.h"
 #include "Core/Core.h"
 #include <iostream>
 #include <string_view>
@@ -21,8 +23,19 @@ int main(int argc, char* argv[])
                 << "\ncpp_standard=" << info.cppStandard << '\n';
             return 0;
         }
+        // Code Modification - Platform: Allow build and timer probes on headless systems.
+        // Scope: CLI diagnostics. Performance: one SDL frequency query on demand. Toggle: --platform-info.
+        if (option == "--platform-info") {
+            const auto platform = CE::App::getPlatformInfo();
+            const auto frequency = CE::App::ElapsedClock::frequency();
+            std::cout << "os=" << platform.os << "\narchitecture=" << platform.architecture
+                << "\ncompiler=" << platform.compiler << "\nbyte_order=" << platform.byteOrder
+                << "\npointer_bits=" << platform.pointerBits << "\nperformance_counter_hz=" << frequency << '\n';
+            return frequency == 0 ? 1 : 0;
+        }
+        // End of Code Modification - Platform
         if (option == "--help") {
-            std::cout << "Usage: WiseEngine [--quiet-title|--version|--build-info|--help]\n"
+            std::cout << "Usage: WiseEngine [--quiet-title|--version|--build-info|--platform-info|--help]\n"
                 << "Resize the window, use the keyboard or mouse, and press Escape to exit.\n";
             return 0;
         }

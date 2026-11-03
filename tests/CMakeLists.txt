@@ -44,3 +44,15 @@ wiseengine_target(ApplicationShellTests)
 add_test(NAME App.Shell COMMAND ApplicationShellTests)
 set_tests_properties(App.Shell PROPERTIES TIMEOUT 15)
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Validate the platform report, coordinate limits, and separate clocks.
+# Scope: test targets. Performance: no shipping cost. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(FoundationTests FoundationTests.cpp ../src/App/PlatformInfo.cpp ../src/App/ElapsedClock.cpp)
+target_link_libraries(FoundationTests PRIVATE Math Core Renderer ThirdParty::Boost ThirdParty::SDL)
+wiseengine_target(FoundationTests)
+add_test(NAME Foundation.Contracts COMMAND FoundationTests)
+add_test(NAME App.PlatformInfo COMMAND App --platform-info)
+set_tests_properties(Foundation.Contracts App.PlatformInfo PROPERTIES
+    TIMEOUT 15 ENVIRONMENT "SDL_VIDEO_DRIVER=wiseengine-invalid-driver")
+set_tests_properties(App.PlatformInfo PROPERTIES PASS_REGULAR_EXPRESSION "performance_counter_hz=[1-9][0-9]*")
+# End of Code Modification - Tests
