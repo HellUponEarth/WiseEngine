@@ -76,3 +76,13 @@ wiseengine_target(MemoryContractsTests)
 add_test(NAME Core.MemoryContracts COMMAND MemoryContractsTests)
 set_tests_properties(Core.MemoryContracts PROPERTIES TIMEOUT 15)
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Read generated loose and ZIP fixtures and exercise the headless tooling path.
+# Scope: filesystem contract test. Performance: test-only temporary files. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(FileSystemTests FileSystemTests.cpp)
+target_link_libraries(FileSystemTests PRIVATE AssetManager)
+wiseengine_target(FileSystemTests)
+add_test(NAME AssetManager.FileSystem COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/FileSystemFixture.py"
+    "$<TARGET_FILE:FileSystemTests>" "$<TARGET_FILE:App>")
+set_tests_properties(AssetManager.FileSystem PROPERTIES TIMEOUT 45)
+# End of Code Modification - Tests

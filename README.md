@@ -1,6 +1,6 @@
 # WiseEngine
 
-WiseEngine is a C++20 game-engine project using Diligent for rendering and Luau for gameplay scripting. **Version 0.0.5 adds frame scratch storage, generation-checked handles, and a fixed-capacity job graph collection.** Launch the executable to open a resizable window with live keyboard and pointer diagnostics in its title.
+WiseEngine is a C++20 game-engine project using Diligent for rendering and Luau for gameplay scripting. **Version 0.0.6 adds a PhysicsFS foundation for mounted content and save files.** Launch the executable to open a resizable window with live keyboard and pointer diagnostics in its title.
 
 ## Build
 
@@ -19,6 +19,7 @@ The build script imports the VS2022 x64 environment into its own process. Direct
 
 ## Milestones and recovery
 
+- [0.0.6 implementation and usage](docs/MILESTONE_0.0.6.md)
 - [0.0.5 implementation and usage](docs/MILESTONE_0.0.5.md)
 - [0.0.4 implementation and usage](docs/MILESTONE_0.0.4.md)
 - [0.0.3 implementation and usage](docs/MILESTONE_0.0.3.md)

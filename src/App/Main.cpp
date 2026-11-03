@@ -1,6 +1,7 @@
 #include "ApplicationShell.h"
 #include "ElapsedClock.h"
 #include "PlatformInfo.h"
+#include "AssetManager/FileSystem.h"
 #include "Core/Core.h"
 #include "Jobs/JobSystem.h"
 
@@ -43,10 +44,40 @@ int runJobSmoke()
 }
 // End of Code Modification - Jobs
 
+// Code Modification - File System: Inspect one loose or archived resource from the command line.
+// Scope: headless native tooling. Performance: bounded synchronous read on demand. Toggle: --fs-read.
+namespace {
+int runFileRead(const char* source, std::string_view path)
+{
+    try {
+        using namespace CE::AssetManager;
+        FileSystem files;
+        if (const auto error = files.mountContent(source)) {
+            std::cerr << error->message << '\n';
+            return 1;
+        }
+        const auto result = files.readContent(path);
+        if (const auto* error = std::get_if<FileError>(&result)) {
+            std::cerr << error->message << '\n';
+            return 1;
+        }
+        std::cout << "bytes=" << std::get<FileBytes>(result).size() << '\n';
+        return 0;
+    } catch (const std::exception& error) {
+        std::cerr << "Filesystem probe failed: " << error.what() << '\n';
+        return 1;
+    }
+}
+}
+// End of Code Modification - File System
+
 // Code Modification - Application: Launch the interactive shell while keeping scriptable build queries.
 // Scope: executable entry point. Performance: sleeps between events. Toggle: --quiet-title.
 int main(int argc, char* argv[])
 {
+    if (argc == 4 && std::string_view(argv[1]) == "--fs-read") {
+        return runFileRead(argv[2], argv[3]);
+    }
     bool titleDiagnostics = true;
     if (argc == 2) {
         const std::string_view option(argv[1]);
@@ -77,6 +108,7 @@ int main(int argc, char* argv[])
         }
         if (option == "--help") {
             std::cout << "Usage: WiseEngine [--quiet-title|--version|--build-info|--platform-info|--job-smoke|--help]\n"
+                << "       WiseEngine --fs-read <native-source> <logical-file>\n"
                 << "Resize the window, use the keyboard or mouse, and press Escape to exit.\n";
             return 0;
         }
