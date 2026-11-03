@@ -86,3 +86,12 @@ add_test(NAME AssetManager.FileSystem COMMAND "${Python3_EXECUTABLE}" "${CMAKE_C
     "$<TARGET_FILE:FileSystemTests>" "$<TARGET_FILE:App>")
 set_tests_properties(AssetManager.FileSystem PROPERTIES TIMEOUT 45)
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Verify framing against raw loopback peers and exercise the transport API.
+# Scope: Network contract test. Performance: test-only sockets. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(TransportTests TransportTests.cpp)
+target_link_libraries(TransportTests PRIVATE Network ThirdParty::asio)
+wiseengine_target(TransportTests)
+add_test(NAME Network.Transport COMMAND TransportTests)
+set_tests_properties(Network.Transport PROPERTIES TIMEOUT 30)
+# End of Code Modification - Tests
