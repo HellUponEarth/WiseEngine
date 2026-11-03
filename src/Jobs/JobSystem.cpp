@@ -3,6 +3,7 @@
 #include <SDL3/SDL_error.h>
 #include <SDL3/SDL_thread.h>
 #include <TaskScheduler.h>
+#include <boost/container/static_vector.hpp>
 #include <algorithm>
 #include <array>
 #include <atomic>
@@ -86,7 +87,6 @@ struct JobSystem::State {
 
     explicit State(std::uint32_t cpuWorkers)
     {
-        batches.reserve(Capacity);
         scheduler.Initialize(cpuWorkers + 1);
         ioThread = SDL_CreateThread(&ioEntry, "WiseEngine I/O", this);
         if (!ioThread) {
@@ -131,12 +131,15 @@ struct JobSystem::State {
 
     void reapBatches()
     {
-        std::erase_if(batches, [](const auto& batch) { return batch->fence.GetIsComplete(); });
+        const auto finished = std::remove_if(batches.begin(), batches.end(),
+            [](const auto& batch) { return batch->fence.GetIsComplete(); });
+        batches.erase(finished, batches.end());
     }
 
     const std::thread::id owner = std::this_thread::get_id();
     enki::TaskScheduler scheduler;
-    std::vector<std::unique_ptr<Batch>> batches;
+    // Fixed storage bounds graph ownership without reallocating the owner list.
+    boost::container::static_vector<std::unique_ptr<Batch>, Capacity> batches;
     std::size_t outstanding{};
     SDL_Thread* ioThread{};
     std::mutex ioMutex;

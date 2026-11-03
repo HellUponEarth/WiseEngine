@@ -67,3 +67,12 @@ add_test(NAME App.JobSmoke COMMAND App --job-smoke)
 set_tests_properties(Jobs.Contracts App.JobSmoke PROPERTIES
     TIMEOUT 20 ENVIRONMENT "SDL_VIDEO_DRIVER=wiseengine-invalid-driver")
 # End of Code Modification - Tests
+
+# Code Modification - Tests: Verify scratch ownership and generation-safe handles.
+# Scope: Core contract test. Performance: test-only. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(MemoryContractsTests MemoryContractsTests.cpp)
+target_link_libraries(MemoryContractsTests PRIVATE Core)
+wiseengine_target(MemoryContractsTests)
+add_test(NAME Core.MemoryContracts COMMAND MemoryContractsTests)
+set_tests_properties(Core.MemoryContracts PROPERTIES TIMEOUT 15)
+# End of Code Modification - Tests

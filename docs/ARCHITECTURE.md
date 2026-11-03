@@ -1,12 +1,12 @@
 # Architecture and ownership
 
-## Implemented at 0.0.4
+## Implemented at 0.0.5
 
-App owns SDL video, the window and the main-thread event loop. Input keeps a per-batch snapshot of keyboard and mouse state. Core supplies build metadata, diagnostic logging and explicit fixed simulation ticks. App owns target detection and the SDL elapsed clock. Math implements checked world/cell conversions. Renderer has a CPU-only bridge for camera-relative coordinates. Jobs provides an opt-in enkiTS CPU scheduler, a dedicated SDL I/O thread and a bounded owner-drained completion queue. Physics, Audio, Network and AssetManager are interface reservations.
+App owns SDL video, the window and the main-thread event loop. Input keeps a per-batch snapshot of keyboard and mouse state. Core supplies build metadata, diagnostic logging, explicit fixed simulation ticks, frame scratch leases and generation-checked handles. App owns target detection and the SDL elapsed clock. Math implements checked world/cell conversions. Renderer has a CPU-only bridge for camera-relative coordinates. Jobs provides an opt-in enkiTS CPU scheduler, a dedicated SDL I/O thread and a bounded owner-drained completion queue. Physics, Audio, Network and AssetManager are interface reservations.
 
 ```mermaid
 flowchart TD
-    App[App: SDL shell, platform and elapsed clock] --> Core[Core: build identity, logging and simulation ticks]
+    App[App: SDL shell, platform and elapsed clock] --> Core[Core: build identity, logging, timing, scratch and handles]
     Core --> Math[Math: world and cell coordinates]
     Renderer[Renderer: render-coordinate bridge] --> Core
     Renderer --> Math
