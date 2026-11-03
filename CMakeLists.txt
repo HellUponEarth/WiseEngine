@@ -1,7 +1,7 @@
 # Code Modification - Build System: Establish the versioned WiseEngine build baseline.
 # Scope: engine targets. Performance: no runtime cost. Toggle: WISEENGINE_* feature options.
 cmake_minimum_required(VERSION 3.31)
-project(WiseEngine VERSION 0.0.1 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
+project(WiseEngine VERSION 0.0.2 DESCRIPTION "Diligent and Luau outdoor game engine" LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
@@ -13,7 +13,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 set(CMAKE_POLICY_VERSION_MINIMUM 3.10)
 if(NOT WIN32 OR NOT MSVC OR NOT CMAKE_SIZEOF_VOID_P EQUAL 8)
-    message(FATAL_ERROR "WiseEngine 0.0.1 supports Windows x64 with MSVC only.")
+    message(FATAL_ERROR "WiseEngine supports Windows x64 with MSVC only.")
 endif()
 if(NOT CMAKE_BUILD_TYPE MATCHES "^(Debug|Release|RelWithDebInfo)$")
     message(FATAL_ERROR "Choose Debug, Release or RelWithDebInfo using a supplied preset.")

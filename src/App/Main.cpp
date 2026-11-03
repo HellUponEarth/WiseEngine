@@ -1,16 +1,13 @@
+#include "ApplicationShell.h"
 #include "Core/Core.h"
 #include <iostream>
 #include <string_view>
 
-// Code Modification - Application: Provide bounded, scriptable baseline diagnostics before window bring-up.
-// Scope: command-line executable only. Performance: exits after one diagnostic; no background work. Toggle: --version skips logging.
+// Code Modification - Application: Launch the interactive shell while keeping scriptable build queries.
+// Scope: executable entry point. Performance: sleeps between events. Toggle: --quiet-title.
 int main(int argc, char* argv[])
 {
-    if (argc == 1) {
-        CE::Core::logBuildInfo();
-        std::cout << "0.0.1 build baseline ready. Interactive application shell is planned for 0.0.2.\n";
-        return 0;
-    }
+    bool titleDiagnostics = true;
     if (argc == 2) {
         const std::string_view option(argv[1]);
         const auto info = CE::Core::getBuildInfo();
@@ -25,11 +22,31 @@ int main(int argc, char* argv[])
             return 0;
         }
         if (option == "--help") {
-            std::cout << "Usage: WiseEngine [--version|--build-info|--help]\n";
+            std::cout << "Usage: WiseEngine [--quiet-title|--version|--build-info|--help]\n"
+                << "Resize the window, use the keyboard or mouse, and press Escape to exit.\n";
             return 0;
         }
+        if (option == "--quiet-title") {
+            titleDiagnostics = false;
+        }
     }
-    std::cerr << "Invalid arguments. Use WiseEngine --help.\n";
-    return 2;
+    if (argc != 1 && titleDiagnostics) {
+        std::cerr << "Invalid arguments. Use WiseEngine --help.\n";
+        return 2;
+    }
+
+    CE::Core::logBuildInfo();
+    CE::App::ApplicationShell shell;
+    if (!shell.open(960, 540, titleDiagnostics)) {
+        return 1;
+    }
+    while (shell.running()) {
+        if (!shell.pump(true)) {
+            return 1;
+        }
+    }
+    shell.close();
+    std::cout << "WiseEngine shutdown complete.\n";
+    return 0;
 }
 // End of Code Modification - Application

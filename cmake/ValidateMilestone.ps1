@@ -27,10 +27,13 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "$config build identity check failed" }
         $lanes += @{ configuration=$config; result='PASS'; build=$lane; identity=$identity; log="$lower.log" }
     }
+    # Use the executable identity so future milestone reports carry the tested version.
+    $version = ($lanes[0].identity | Where-Object { $_ -like 'version=*' }) -replace '^version=', ''
+    if (-not $version) { throw 'Executable version is missing from build identity.' }
     $report = @{
-        milestone='0.0.1'; completedUtc=[DateTime]::UtcNow.ToString('o'); lanes=$lanes
+        milestone=$version; completedUtc=[DateTime]::UtcNow.ToString('o'); lanes=$lanes
         dependencyLockSha256=(Get-FileHash thirdparty/dependencies.lock.json -Algorithm SHA256).Hash.ToLowerInvariant()
-        scope='Clean build directories and SDK integration; no interactive, GPU-device or performance acceptance.'
+        scope='Clean build directories and automated CTest coverage. Desktop interaction is validated separately.'
     }
     $report | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $output 'results.json') -Encoding UTF8
     Write-Output "Milestone validation passed: $output/results.json"

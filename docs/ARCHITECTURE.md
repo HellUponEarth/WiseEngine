@@ -1,25 +1,25 @@
 # Architecture and ownership
 
-## Implemented at 0.0.1
+## Implemented at 0.0.2
 
-Only Core build metadata and the diagnostic App executable have C++ implementations. Math, Renderer, Physics, Audio, Input, Network and AssetManager are interface reservations. SDKs are installed and tested independently; that does not make their engine modules functional.
+App owns SDL video, the window and the main-thread event loop. Input keeps a per-batch snapshot of keyboard and mouse state. Core supplies build metadata and diagnostic logging. Math, Renderer, Physics, Audio, Network and AssetManager are interface reservations.
 
 ```mermaid
 flowchart TD
-    App[App: command-line baseline] --> Core[Core: build identity and diagnostic logging]
+    App[App: SDL shell] --> Core[Core: build identity and diagnostic logging]
     Core --> Math[Math: dependency-free reservation]
     Renderer[Renderer: reserved] --> Core
     Renderer --> Math
     Physics[Physics: reserved] --> Core
     Physics --> Math
     Audio[Audio: reserved] --> Core
-    Input[Input: reserved] --> Core
+    App --> Input[Input: event snapshot]
     Network[Network: reserved] --> Core
     AssetManager[AssetManager: reserved] --> Core
     AssetManager --> Math
 ```
 
-Arrows mean permitted direct engine-module dependency. App may depend on every module when its implementation needs them; at this milestone it links Core. Third-party targets are separate from this graph. Core's only external libraries are fmt/spdlog. Never initialize an upper-level module from Core.
+Arrows mean permitted direct engine-module dependency. App may depend on every module when its implementation needs them; at this milestone it links Core and Input. Third-party targets are separate from this graph. Core's only external libraries are fmt/spdlog. Never initialize an upper-level module from Core.
 
 ## Planned runtime contracts
 

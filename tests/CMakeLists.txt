@@ -2,10 +2,11 @@
 # Scope: test executables only. Performance: no shipping cost. Toggle: WISEENGINE_BUILD_TESTS.
 add_executable(BaselineTests BaselineTests.cpp)
 target_link_libraries(BaselineTests PRIVATE Core)
+target_compile_definitions(BaselineTests PRIVATE WISEENGINE_EXPECTED_VERSION="${PROJECT_VERSION}")
 wiseengine_target(BaselineTests)
 add_test(NAME Core.Baseline COMMAND BaselineTests)
 add_test(NAME App.Version COMMAND App --version)
-set_tests_properties(App.Version PROPERTIES PASS_REGULAR_EXPRESSION "WiseEngine 0.0.1")
+set_tests_properties(App.Version PROPERTIES PASS_REGULAR_EXPRESSION "WiseEngine ${PROJECT_VERSION}")
 add_test(NAME App.BuildInfo COMMAND App --build-info)
 set_tests_properties(App.BuildInfo PROPERTIES PASS_REGULAR_EXPRESSION "configuration=${CMAKE_BUILD_TYPE}")
 add_test(NAME App.InvalidArgument COMMAND App --unknown)
@@ -34,3 +35,12 @@ set_tests_properties(Core.Baseline App.Version App.BuildInfo App.InvalidArgument
 # End of Code Modification - Build System
 
 add_test(NAME Build.BackupRecovery COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/BackupTests.py")
+
+# Code Modification - Tests: Cover startup rollback and input through the real SDL event queue.
+# Scope: test target only. Performance: no shipping cost. Toggle: WISEENGINE_BUILD_TESTS.
+add_executable(ApplicationShellTests ApplicationShellTests.cpp ../src/App/ApplicationShell.cpp)
+target_link_libraries(ApplicationShellTests PRIVATE Core Input ThirdParty::spdlog)
+wiseengine_target(ApplicationShellTests)
+add_test(NAME App.Shell COMMAND ApplicationShellTests)
+set_tests_properties(App.Shell PROPERTIES TIMEOUT 15)
+# End of Code Modification - Tests
